@@ -1,0 +1,13 @@
+---
+title: "About This Website"
+output: 
+  html_document: 
+    highlight: tango
+    theme: cosmo
+---
+
+Website based around class notes for BIOL6100
+
+To get to homeworks, click [here](https://noahmattheis.github.io/MattheisBIOL6100/)
+
+To get to my main GitHub page with all repositories, click [here](https://github.com/NoahMattheis)
