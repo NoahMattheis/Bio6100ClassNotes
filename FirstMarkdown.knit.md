@@ -1,0 +1,183 @@
+---
+title: "Markdown Commands"
+author: "Noah W.K. Mattheis"
+date: "2025-01-21"
+output: 
+    html_document: 
+      toc: true
+      highlight: tango
+      theme: cosmo
+    pdf_document: default
+---
+
+
+
+Ok so I can just type as I normally would for any text, no marks needed. 
+Always seperate paragraphs with two carriage returns.
+
+
+Here is our second paragraph.
+
+Header size determined by number of "#" with less being larger font
+
+# First header (largest)
+
+## If done this way, will print all in one line
+Noah Mattheis
+Pharmacology MS Student
+University of Vermont
+
+## Second Level (getting smaller in size)
+## need two spaces between them for lines between
+
+
+### Third level
+
+#### Fourth level
+Noah Mattheis
+
+Pharmacology MS Student
+
+University of Vermont
+
+Use *astericks* for *italic* and **double astericks** for **bold**
+
+Use ^caret^ '^' for ^superscript^ and ~tilda~ '~' for ~subscript~ and ~~2 tildas~~ '~~'for ~~strikethrough~~
+
+Use r in an in-line text:
+
+The value of pi + 10 is 13.1415927.
+
+> Use a greater than sign for indented quoted material. Looks nice Ceaser-chan! 
+
+## For Lists
+
+- first item
+- second item
+    - indented list item
+    + also indented item
+    
+## For Links
+
+links [linking text](website address)
+Lets try for my favorite magic card art
+    
+  Bearer of the Heavens [Card](https://gatherer.wizards.com/pages/card/details.aspx?name=Bearer%20of%20the%20Heavens)
+    
+## For Tables
+
+First Header | Second Header
+------------ | -------------
+Content Cell | Content Cell
+Content Cell | Content Cell
+
+## Fencing Options
+
+Use a single back tick/ backwards quotation mark for `in line fencing` of material.
+
+Use triple back tips for fenced block of text
+
+```
+Everything here is a plain text
+even with markdown *commands*
+Stays until closed with 3 back tips
+
+Blank lines properly spaced
+
+Very nice, Ceaser-chan
+```
+
+## Important type of fencing
+#### using chunk of r code - everything between the marks will be executed as r code
+#### will show code and execution of said code
+#### if eval=FALSE, will not show code output, easier for sharing code
+#### if eval=TRUE AND echo=FALSE, we will see output but not the code
+
+
+```
+##  [1] 0.2610814 0.7690179 0.4726754 0.1032719 0.4986805 0.7555883 0.1676998 0.9190942
+##  [9] 0.0333595 0.9718758
+```
+
+![](FirstMarkdown_files/figure-latex/unnamed-chunk-1-1.pdf)<!-- --> 
+
+Having both be true
+
+
+```r
+# r code can be used here! 
+
+print(runif(10))
+```
+
+```
+##  [1] 0.51849566 0.64577298 0.12100735 0.70719522 0.49258055 0.02658777 0.77927377 0.17460403
+##  [9] 0.21122615 0.96134954
+```
+
+```r
+plot(runif(10), runif(10))
+```
+
+![](FirstMarkdown_files/figure-latex/unnamed-chunk-2-1.pdf)<!-- --> 
+
+Having eval false here
+
+
+```r
+# r code can be used here! 
+
+print(runif(10))
+plot(runif(10), runif(10))
+```
+
+## Using LaTeX for Math, o ya baby
+
+Use a single dollar sign at the beginning and end of equation $a = b + c$ 
+
+To insert a mathematical statement within plain text, no spaces
+OR use double dollar signs, can be used with spaces, for center and separted equation 
+$$ a = b + c $$
+Subscripts, using '_'
+
+'H_0" important here
+$$H_0 = Z_{a + b}$$
+Superscripts, using a caret '^'
+$$S = cA^z$$
+Combining 
+
+$$S=cA^z_1 + z_{2 + x}$$
+
+Fraction with variables
+
+$$\alpha = \frac{\beta}{\delta + \gamma_x}$$
+
+Summation signs
+
+$$z = \sum_{i=1}^X{K}$$
+Just a backslash
+
+$$\backslash$$
+backslash le gives us less than or equal to
+$$\backslash \alpha \le b \backslash$$
+
+Mixing text and equations, we need an m box, without it it will smush text together and treat it all as one variable
+$$P(\mbox{Occurence of Species A}) = Z$$
+
+Back to chunkin'
+
+```r
+#Here is a new chunk of code, distant from the first one in our document.
+
+z <- 1:10
+print(z)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+#end of second chunk
+```
+
