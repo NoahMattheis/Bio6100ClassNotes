@@ -4,8 +4,8 @@ navbar:
   title: "My Website"
   left:
     - text: "Home"
-      href: index.html
+      href: FirstMarkdown.html
     - text: "About"
       href: about.html
-    - text: "Class Notes"
-      href: FirstMarkdown.html
+    - text: "Index"
+      href: index.html
