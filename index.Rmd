@@ -1,5 +1,5 @@
 ---
-title: "My Website"
+title: "Index"
 output: 
   html_document: 
     highlight: tango
