@@ -1,0 +1,8 @@
+# comments at the top,,,
+# beaucoup metadata,,,
+ID,Treatment,Biomass,Notes
+1,Control,10.2,
+2,Control,1004,
+# adding comment mid data,,,
+3,Treatment,NA,Broken Scale
+4,Treatment,23,

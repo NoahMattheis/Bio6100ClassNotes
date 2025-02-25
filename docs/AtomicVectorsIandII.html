@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Noah W.K. Mattheis" />
+
+<meta name="date" content="2025-02-04" />
+
+<title>AtomicVectorsIandII</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="FirstMarkdown.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="index.html">Index</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">AtomicVectorsIandII</h1>
+<h4 class="author">Noah W.K. Mattheis</h4>
+<h4 class="date">2025-02-04</h4>
+
+</div>
+
+
+<div id="using-the-assignment-operator" class="section level1">
+<h1>Using the Assignment Operator</h1>
+<pre class="r"><code>x &lt;- 5 # Preferred way of variable assignment
+y = 4 # Also true but not used except in function defaults
+y = y + 1.1
+print(y)</code></pre>
+<pre><code>## [1] 5.1</code></pre>
+<pre class="r"><code>y &lt;- y + 1.1
+print(y)</code></pre>
+<pre><code>## [1] 6.2</code></pre>
+</div>
+<div id="variable-names" class="section level1">
+<h1>Variable Names</h1>
+<pre><code>z &lt;- 3
+plantHeight &lt;- 10 # Option - &#39;camelCaseFormatting&#39;
+plant.height &lt;- 4.2 # Avoid periods in names, think of methods/functions, still works in R
+plant_height &lt;- 3.3 # Optimal &#39;snake_case_formating&#39;, apparently easiest to read
+. &lt;- 5.5 # Reserve period as a generic temporary variable
+print(.)</code></pre>
+</div>
+<div id="using-the-combine-function" class="section level1">
+<h1>Using the Combine Function</h1>
+<pre><code>z &lt;- c(3.2, 5, 5, 6) # c-function means combine or concatenate
+print(z)
+typeof(z) # Prints out variable storage type
+is.numeric(z) # is functions return TRUE or FALSE</code></pre>
+</div>
+<div id="functions-within-functions" class="section level1">
+<h1>Functions within Functions</h1>
+<p>c() always “flattens” to an atomic vector</p>
+<pre><code>z &lt;- c(c(3,4), c(5,6))
+print(z)</code></pre>
+</div>
+<div
+id="creating-character-string-variables-as-well-single-or-double-quotes-used"
+class="section level1">
+<h1>Creating character string variables as well, single or double quotes
+used</h1>
+<pre><code>z &lt;- c(&quot;perch&quot;, &quot;bass&quot;, &#39;trout&#39;)
+print(z)
+typeof(z)</code></pre>
+</div>
+<div id="using-both-with-internal-quote" class="section level1">
+<h1>Using both with internal quote</h1>
+<pre><code>z &lt;- c(&quot;This is only &#39;one&#39; character string&quot;, &#39;a second&#39;)
+print(z)
+typeof(z)
+is.character(z)</code></pre>
+</div>
+<div id="logical-variablesfunctions" class="section level1">
+<h1>Logical variables/functions</h1>
+</div>
+<div id="boolean-not-with-quotes-all-caps" class="section level1">
+<h1>Boolean, not with quotes, all caps</h1>
+<pre><code>z &lt;- c(TRUE, TRUE, TRUE)
+# avoid abreviations T, F which do work
+print(z)
+typeof(z)
+is.logical(z)
+is.integer(z)</code></pre>
+</div>
+<div id="vectors" class="section level1">
+<h1>Vectors</h1>
+<p>Every vector has type associated with it</p>
+<pre><code>z &lt;- c(1.1, 1.2, 3, 4)
+typeof(z)
+is.numeric(z)
+z &lt;- as.character(z) # coercing R to turn variable into certain type, need to specify/declare it onto a variable
+print(z)
+typeof(z)
+# First property, type
+# Second property, length
+length(z) # gives number of elements
+length(a) # Should give error as this variable has not been defined or initiated</code></pre>
+</div>
+<div id="names-for-individual-elements-insides-atomic-variable"
+class="section level1">
+<h1>Names for individual elements insides Atomic Variable</h1>
+<pre><code>z &lt;- runif(5)
+#optional attribute not initally assigned
+names(z)
+print(z)</code></pre>
+</div>
+<div id="add-names-later-after-variable-is-created"
+class="section level1">
+<h1>add names later after variable is created</h1>
+<pre><code>z &lt;- runif(5)
+names(z) &lt;- c(&quot;chow&quot;, &quot;pug&quot;, &quot;beagle&quot;, &quot;greyhound&quot;, &quot;akita&quot;)
+print(z)</code></pre>
+</div>
+<div
+id="recalling-a-particular-element-in-a-vectormatrix-starts-at-1-or-call-on-name-directly-if-it-is-there"
+class="section level1">
+<h1>Recalling a particular element in a vector/matrix, starts at 1, or
+call on name directly if it is there</h1>
+<pre><code>print(z[2])
+print(z[&quot;pug&quot;])</code></pre>
+</div>
+<div
+id="building-vector-with-names-at-same-timebeginning-of-variable-declaration"
+class="section level1">
+<h1>Building vector with names at same-time/beginning of variable
+declaration</h1>
+<pre><code>z2 &lt;- c(gold=3.3, silver = 10, lead = 2)
+print(z2)</code></pre>
+</div>
+<div id="reset-names" class="section level1">
+<h1>Reset Names</h1>
+<pre><code>names(z2) &lt;- NULL
+print(z2)</code></pre>
+</div>
+<div
+id="names-added-for-select-elements-do-not-need-to-be-distinct-names"
+class="section level1">
+<h1>Names added for select elements, do not need to be distinct
+names</h1>
+<pre><code>names(z2) &lt;- c(&quot;copper&quot;, &quot;zinc&quot;)
+print(z2)</code></pre>
+</div>
+<div id="na-values-for-missing-data-r-knows-how-to-handle-na"
+class="section level1">
+<h1>NA Values for missing data, R knows how to handle NA</h1>
+<pre><code>z &lt;- c(3.2, 3.3, NA) # NA is missing value
+typeof(z)
+length(z)
+typeof(z[3]) # Even though value is missing, NA is still a double
+print(z)</code></pre>
+</div>
+<div id="na-can-have-different-types" class="section level1">
+<h1>NA can have different types</h1>
+<pre><code>z1 &lt;- NA
+typeof(z1)
+
+
+print(z)
+is.na(z) # Logical operator to find missing values
+mean(z)  # won&#39;t work because of missing value/NA
+is.na(z) # evaluate to find missing values
+!is.na(z) # Use ! for NOT missing values or NOT function
+mean(!is.na(z)) # Wrong answer based on TRUE FALSE i.e. the TRUE and FALSE get converted to 1 and 0 respectfully, which is why we get 0.667 as (1 + 1 + 0)/3 = 0.667
+mean(z[!is.na(z)]) # Correct indexing for mean to calculate and exclude the missing variables</code></pre>
+</div>
+<div id="common-variables-to-see-when-doing-calculations"
+class="section level1">
+<h1>Common variables to see when doing calculations</h1>
+<p>NaN, -Inf, and Inf from division</p>
+<pre><code>z &lt;- 0/0 #NaN
+typeof(z)
+print(z)
+z &lt;- 1/0 # Inf
+print(z)
+z &lt;- -1/0 # -Inf
+print(z)</code></pre>
+</div>
+<div id="null-is-an-object-that-is-nothing-paradox-ceasar-chan"
+class="section level1">
+<h1>NULL is an object that is nothing (paradox Ceasar-chan)</h1>
+</div>
+<div id="a-reserved-word-in-r" class="section level1">
+<h1>a reserved word in R</h1>
+<pre><code>z &lt;- NULL
+typeof(z)
+length(z)
+is.null(z) # only operation that works on NULL</code></pre>
+</div>
+<div id="property-1" class="section level1">
+<h1>Property 1</h1>
+<p>Variable Coercion - used when variables have different data types</p>
+<p>R operates on a hierarchy of values</p>
+<p>Logical -&gt; Integer -&gt; Double -&gt; Character with Characters at
+the top and logical at bottom</p>
+<p>So if I have a logical mixed with character, will be converted to
+character This is why a lot of the time we do column titles and column
+info separately</p>
+<pre><code>a &lt;- c(2, 2.0)
+print(a)
+typeof(a) # Technically integer coerced to double
+b &lt;- c(&quot;purple&quot;, &quot;green&quot;)
+typeof(b)
+print(b)
+
+d &lt;- c(a,b)
+print(d)
+typeof(d)</code></pre>
+</div>
+<div id="mistakes-in-numerical-variables-convert-to-strings"
+class="section level1">
+<h1>Mistakes in numerical variables convert to strings</h1>
+</div>
+<div id="useful-when-working-with-logical-variables"
+class="section level1">
+<h1>Useful when working with logical variables</h1>
+<pre><code>a &lt;- runif(10)
+print(a)</code></pre>
+</div>
+<div id="comparsion-operators-yield-logical-results"
+class="section level1">
+<h1>Comparsion Operators yield Logical Results</h1>
+<pre><code>a &gt; 0.5 # Asking R, is a &gt; 0.5, and since a is a list it will return when this is TRUE or FALSE</code></pre>
+</div>
+<div id="doing-previous-statement-using-variable-coercion"
+class="section level1">
+<h1>Doing previous statement using variable coercion</h1>
+</div>
+<div id="how-many-elements-are-greater-than-0.5" class="section level1">
+<h1>How many elements are greater than 0.5?</h1>
+<pre><code>sum(a &gt; 0.5) # coercing TRUE and FALSE into integers of 1 and 0 then doing the math</code></pre>
+</div>
+<div id="what-proportion-of-the-vector-elements-are-greater-than-0.5"
+class="section level1">
+<h1>What proportion of the vector elements are greater than 0.5</h1>
+<pre><code>mean(a &gt; 0.5)</code></pre>
+</div>
+<div id="breakdown-the-result" class="section level1">
+<h1>Breakdown the result</h1>
+<pre><code>. &lt;- a &gt; 0.5
+print(.)
+. &lt;- as.integer(.)
+print(.)
+print(sum(.))
+print(mean(.))
+
+mean(rnorm(100000) &gt; 2)</code></pre>
+</div>
+<div id="property-2---vectorization" class="section level1">
+<h1>Property 2 - Vectorization</h1>
+</div>
+<div id="adding-a-constant-to-vector" class="section level1">
+<h1>Adding a constant to vector</h1>
+<pre><code>z &lt;- c(10, 20, 30)
+z + 1 # action added to each number in vector</code></pre>
+</div>
+<div id="what-happens-when-vectors-are-added" class="section level1">
+<h1>What happens when vectors are added?</h1>
+<pre><code>y &lt;- c(1,2,3)
+z + y # Like with matrix work, element by element operation when adding vectors
+
+z^2 # squares each element in the vector, element by element</code></pre>
+</div>
+<div id="what-happens-when-vectors-are-not-the-same-length"
+class="section level1">
+<h1>What happens when vectors are not the same length?</h1>
+</div>
+<div id="property-3---recycling" class="section level1">
+<h1>Property 3 - Recycling</h1>
+<pre><code>z &lt;- c(10,20,30)
+x &lt;- c(1,2)
+z + x # Recycles first element of x to add to last element of z
+y &lt;- c(10,20,30,40)
+y + x # Recycles first element for pos 3, then recycles second element for pos 4</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

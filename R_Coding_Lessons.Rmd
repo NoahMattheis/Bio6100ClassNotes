@@ -1,0 +1,21 @@
+---
+title: "R_Coding_Lessons"
+author: "Noah W.K. Mattheis"
+date: "2025-02-25"
+output: 
+  html_document: 
+    highlight: tango
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Coding Lessons and Examples
+In this section, there will be various links to other R Coding Examples
+
+### For Loops
+[For Loops](For_Loops.html)
+
+Large lesson going over for loops, while loops, and functions 

@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Noah W.K. Mattheis" />
+
+<meta name="date" content="2025-02-25" />
+
+<title>For_Loops</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R Coding and R Markdown Notes</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="index.html">Index</a>
+</li>
+<li>
+  <a href="FirstMarkdown.html">RMarkdown Structure</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    R Coding Lessons
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="For_Loops.html">For Loops</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">For_Loops</h1>
+<h4 class="author">Noah W.K. Mattheis</h4>
+<h4 class="date">2025-02-25</h4>
+
+</div>
+
+
+<div id="going-over-loopsfor-loops-while-loops" class="section level1">
+<h1>Going over Loops/For Loops/ While Loops</h1>
+<p>For Loops can be slow in R, especially when using functions like
+cbind in a loop R is a language that doesn’t need to rely on them too
+much So why do we use them? Comfort, ease of transfer to other
+languages, sometimes easier to read, and sometimes laziness </p>
+<div id="basic-anatomy-of-for-loop" class="section level2">
+<h2>BASIC ANATOMY OF FOR LOOP</h2>
+</div>
+<div id="for-var-in-seq-start-of-for-loop" class="section level2">
+<h2>for (var in seq) { start of for loop</h2>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
+</div>
+<div id="body-of-for-loop" class="section level2">
+<h2>body of for loop</h2>
+</div>
+<div id="section-1" class="section level2">
+<h2></h2>
+</div>
+<div id="end-of-for-loop" class="section level2">
+<h2>} end of for loop</h2>
+<p>Good rule of thumb - Use i, j, or k for the var of loop This way, we
+know if we are using these counter variables, we know we are in a loop
+Common etiquette across other languages as well, like Java and Python
+</p>
+<div id="general-way-to-set-up-for-loops" class="section level4">
+<h4>General way to set up for loops</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) { <span class="co"># initializes loop and will iterate 5 times</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;stuck in a loop&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># First will print/concatenate this line</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># then will do this arithmetic</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">runif</span>(<span class="dv">1</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># then will create a rand unif number</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>} <span class="co"># Loop will run 5 times, as we specified, before it is finished</span></span></code></pre></div>
+<pre><code>## stuck in a loop 
+## 5 
+## 0.5028801 
+## stuck in a loop 
+## 5 
+## 0.6269116 
+## stuck in a loop 
+## 5 
+## 0.1350145 
+## stuck in a loop 
+## 5 
+## 0.6696389 
+## stuck in a loop 
+## 5 
+## 0.5565729</code></pre>
+</div>
+<div id="for-loops-can-also-iniatereassign-values"
+class="section level4">
+<h4>For loops can also iniate/reassign values</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) { <span class="co"># initializes loop will iterate 5 times</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  z <span class="ot">&lt;-</span> z <span class="sc">+</span> i</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">print</span>(z)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 3
+## [1] 6
+## [1] 10
+## [1] 15</code></pre>
+</div>
+<div id="for-loop-with-iterations-based-on-vector-length"
+class="section level4">
+<h4>For loop with iterations based on vector length</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>my_dogs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;chow&#39;</span>, <span class="st">&#39;puggle&#39;</span>, <span class="st">&#39;pug&#39;</span>, <span class="st">&#39;st bernard&#39;</span>, <span class="st">&#39;husky&#39;</span>) <span class="co"># Creates vector of strings</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(my_dogs)) { <span class="co"># i will iterate first slot of vector to end of vector</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_dogs[i] =&quot;</span>, my_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i = 1 my_dogs[i] = chow 
+## i = 2 my_dogs[i] = puggle 
+## i = 3 my_dogs[i] = pug 
+## i = 4 my_dogs[i] = st bernard 
+## i = 5 my_dogs[i] = husky</code></pre>
+</div>
+<div id="using-null-showing-length-of-this-vector"
+class="section level4">
+<h4>Using NULL, showing length of this vector</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>my_bad_dogs <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(my_bad_dogs)) {</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_bad_dogs[i] =&quot;</span>, my_bad_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>} <span class="co"># Code has 2 print outs, because we declared it to run at 1, but NULL is = 0, so it counts back to 0</span></span></code></pre></div>
+<pre><code>## i = 1 my_bad_dogs[i] = 
+## i = 0 my_bad_dogs[i] =</code></pre>
+</div>
+<div id="same-as-first-for-loop-with-my_dogs" class="section level4">
+<h4>Same as first for loop with my_dogs</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(my_dogs)) { <span class="co">#seq_along creates sequence following length of vector</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_dogs[i] =&quot;</span>, my_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i = 1 my_dogs[i] = chow 
+## i = 2 my_dogs[i] = puggle 
+## i = 3 my_dogs[i] = pug 
+## i = 4 my_dogs[i] = st bernard 
+## i = 5 my_dogs[i] = husky</code></pre>
+</div>
+<div id="prints-out-nothing-compared-to-2-print-outs"
+class="section level4">
+<h4>Prints out nothing, compared to 2 print outs</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(my_bad_dogs)) {</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_bad_dogs[i] =&quot;</span>, my_bad_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="using-seq_len-for-loop-range-and-comparing-to-length"
+class="section level4">
+<h4>Using seq_len for loop range and comparing to length</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>zz <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(zz)) {</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_dogs[i] =&quot;</span>, my_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i = 1 my_dogs[i] = chow 
+## i = 2 my_dogs[i] = puggle 
+## i = 3 my_dogs[i] = pug 
+## i = 4 my_dogs[i] = st bernard 
+## i = 5 my_dogs[i] = husky</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">length</span>(my_dogs)) {</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  my_dogs[i] <span class="ot">&lt;-</span> <span class="fu">toupper</span>(my_dogs[i])</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;my_dogs =&quot;</span>, my_dogs[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i = 5 my_dogs = HUSKY</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>my_dogs <span class="ot">&lt;-</span> <span class="fu">tolower</span>(my_dogs)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>my_dogs <span class="ot">&lt;-</span> <span class="fu">toupper</span>(my_dogs)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>my_dogs</span></code></pre></div>
+<pre><code>## [1] &quot;CHOW&quot;       &quot;PUGGLE&quot;     &quot;PUG&quot;        &quot;ST BERNARD&quot; &quot;HUSKY&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>my_dat <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  my_dat <span class="ot">&lt;-</span> <span class="fu">c</span>(my_dat, temp)</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;loop number =&quot;</span>, i, <span class="st">&quot;vector_element =&quot;</span>, my_dat[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## loop number = 2 vector_element = 0.349832 
+## loop number = 3 vector_element = 0.4733299 
+## loop number = 4 vector_element = 0.08089804 
+## loop number = 5 vector_element = 0.4561452 
+## loop number = 6 vector_element = 0.2650024 
+## loop number = 7 vector_element = 0.6173027 
+## loop number = 8 vector_element = 0.5467498 
+## loop number = 9 vector_element = 0.6331127 
+## loop number = 10 vector_element = 0.4932429</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">length</span>(my_dat)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+</div>
+</div>
+<div id="tip-dont-write-a-loop-if-operation-can-be-vectorized"
+class="section level2">
+<h2>TIP: Don’t write a loop if operation can be vectorized</h2>
+</div>
+</div>
+<div id="just-a-reminder-of-division" class="section level1">
+<h1>Just a reminder of division</h1>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="dv">16</span><span class="sc">/</span><span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] 3.2</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="dv">16</span> <span class="sc">%%</span> <span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="dv">16</span> <span class="sc">%/%</span> <span class="dv">5</span> <span class="co"># returns how many times following number can divide into first number</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div id="what-if-we-want-to-only-work-with-odd-numbered-elements"
+class="section level4">
+<h4>What if we want to only work with odd-numbered elements?</h4>
+</div>
+<div id="is-used-to-return-remainder-after-division"
+class="section level4">
+<h4>%% is used to return remainder after division</h4>
+</div>
+<div
+id="using-i-20-were-saying-if-the-remainder-equals-0-i.e.-is-divisible-by-2"
+class="section level4">
+<h4>Using i %% 2==0, were saying if the remainder equals 0, i.e. is
+divisible by 2</h4>
+</div>
+<div id="we-skip-it-using-nextwhich-takes-us-back-to-beginning-of-loop"
+class="section level4">
+<h4>we skip it using ‘next’,which takes us back to beginning of
+loop</h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(z)) {</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">2</span><span class="sc">==</span><span class="dv">0</span>) <span class="cf">next</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 3
+## [1] 5
+## [1] 7
+## [1] 9
+## [1] 11
+## [1] 13
+## [1] 15
+## [1] 17
+## [1] 19</code></pre>
+</div>
+</div>
+<div id="same-loop-but-now-returning-even-numbers"
+class="section level1">
+<h1>Same loop but now returning even numbers</h1>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(z)) {</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">2</span><span class="sc">==</span><span class="dv">1</span>) <span class="cf">next</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 2
+## [1] 4
+## [1] 6
+## [1] 8
+## [1] 10
+## [1] 12
+## [1] 14
+## [1] 16
+## [1] 18
+## [1] 20</code></pre>
+</div>
+<div id="using-will-skip-if-division-does-not-equal-0"
+class="section level1">
+<h1>Using != will skip if division DOES NOT EQUAL 0</h1>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(z)) {</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">2</span><span class="sc">!=</span><span class="dv">0</span>) <span class="cf">next</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 2
+## [1] 4
+## [1] 6
+## [1] 8
+## [1] 10
+## [1] 12
+## [1] 14
+## [1] 16
+## [1] 18
+## [1] 20</code></pre>
+</div>
+<div id="do-we-need-a-loop-for-this-in-r" class="section level1">
+<h1>Do we need a loop for this in R?</h1>
+</div>
+<div id="no" class="section level1">
+<h1>NO</h1>
+</div>
+<div id="returning-all-odd-elements-with-no-loop"
+class="section level1">
+<h1>Returning all odd elements with no loop</h1>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>zsub <span class="ot">&lt;-</span> z[z <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">!=</span> <span class="dv">0</span>] <span class="co"># Give me elements of z that are not divisible by 2</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">length</span>(zsub)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>zsub</span></code></pre></div>
+<pre><code>##  [1]  1  3  5  7  9 11 13 15 17 19</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>zsub <span class="ot">&lt;-</span> z[z <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># Give me elements of z that are divisible by 2</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">length</span>(zsub)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>zsub</span></code></pre></div>
+<pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+</div>
+<div
+id="tip-always-look-for-vectorizing-shortcuts-to-avoid-loops-if-possible"
+class="section level1">
+<h1>TIP: Always look for vectorizing shortcuts to avoid loops if
+possible</h1>
+<div id="but-now-back-to-loops-d" class="section level4">
+<h4>But now, back to loops :D</h4>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(zsub)) {</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;i =&quot;</span>, i,<span class="st">&quot;zub[i] &quot;</span> ,zsub[i], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i = 1 zub[i]  2 
+## i = 2 zub[i]  4 
+## i = 3 zub[i]  6 
+## i = 4 zub[i]  8 
+## i = 5 zub[i]  10 
+## i = 6 zub[i]  12 
+## i = 7 zub[i]  14 
+## i = 8 zub[i]  16 
+## i = 9 zub[i]  18 
+## i = 10 zub[i]  20</code></pre>
+</div>
+</div>
+<div id="creating-a-function-with-for-loops" class="section level1">
+<h1>Creating a Function with for loops</h1>
+<p>Using the break function now in for loops to stop loops Random walk
+example NWKM /20/2025 </p>
+<p>FUNCTION: ran_walk stochastic random walk input: times = number of
+time steps n1 = initial population size (= n[1]) lambda = finite rate of
+increase noise_sd = sd of a normal distribution with mean 0 output:
+vector n with population size &gt; 0 until extinction, then NA </p>
+<p>if lamda = 1.0, there will be no change in time step if lamda = 1.1,
+there will be a 10% increase each time step if lamda = 0.98, there will
+be a 2% decrease each time step </p>
+<p>if lamda is &gt; 1, we have a living organism </p>
+<p>with stochastic, each time step can be up or down, but on average
+will be 0 due to normal distribution will keep track of what happens
+until we hit 0 in terms of real population, thats extinction &lt;- this
+is where break comes into play ————————————————————————————</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>ran_walk <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">times=</span><span class="dv">100</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>                     <span class="at">n1=</span><span class="dv">50</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>                     <span class="at">lamda =</span> <span class="fl">1.00</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>                     <span class="at">noise_sd =</span> <span class="dv">10</span>) {</span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, times) <span class="co"># create output vector</span></span>
+<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  n[<span class="dv">1</span>] <span class="ot">&lt;-</span> n1 <span class="co"># initial population size</span></span>
+<span id="cb44-8"><a href="#cb44-8" tabindex="-1"></a>  noise <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> times, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> noise_sd) <span class="co"># create noise vector</span></span>
+<span id="cb44-9"><a href="#cb44-9" tabindex="-1"></a>  <span class="co"># on average, noise should be 0 but some will be pos and some will be neg</span></span>
+<span id="cb44-10"><a href="#cb44-10" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(times<span class="dv">-1</span>)) {</span>
+<span id="cb44-11"><a href="#cb44-11" tabindex="-1"></a>    n[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> lamda<span class="sc">*</span>n[i] <span class="sc">+</span> noise[i]</span>
+<span id="cb44-12"><a href="#cb44-12" tabindex="-1"></a>   <span class="cf">if</span>(n[i <span class="sc">+</span> <span class="dv">1</span>] <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
+<span id="cb44-13"><a href="#cb44-13" tabindex="-1"></a>      n[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb44-14"><a href="#cb44-14" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;Population extinction at time&quot;</span>, i<span class="sc">+</span><span class="dv">1</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb44-15"><a href="#cb44-15" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb44-16"><a href="#cb44-16" tabindex="-1"></a>    }</span>
+<span id="cb44-17"><a href="#cb44-17" tabindex="-1"></a>  }</span>
+<span id="cb44-18"><a href="#cb44-18" tabindex="-1"></a>  <span class="fu">return</span>(n)</span>
+<span id="cb44-19"><a href="#cb44-19" tabindex="-1"></a>}</span>
+<span id="cb44-20"><a href="#cb44-20" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="#cb44-21" tabindex="-1"></a><span class="co"># Testing ran_walk() function</span></span>
+<span id="cb44-22"><a href="#cb44-22" tabindex="-1"></a><span class="co"># This function is an example of something that needs to be done in a for-loop</span></span>
+<span id="cb44-23"><a href="#cb44-23" tabindex="-1"></a><span class="co"># do we want stop instead of break?</span></span>
+<span id="cb44-24"><a href="#cb44-24" tabindex="-1"></a><span class="fu">ran_walk</span>()</span></code></pre></div>
+<pre><code>## Population extinction at time 18</code></pre>
+<pre><code>##   [1] 50.00000 55.02635 48.68178 42.52928 37.19796 30.70386 39.70569 24.27046
+##   [9] 27.13400 24.56143 29.31350 28.36519 34.61533 25.70124 23.62635 25.84784
+##  [17] 13.82831       NA       NA       NA       NA       NA       NA       NA
+##  [25]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [33]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [41]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [49]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [57]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [65]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [73]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [81]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [89]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [97]       NA       NA       NA       NA</code></pre>
+<div
+id="using-qplot-with-our-new-function---but-it-was-deprecated-in-3.4.0-so-be-careful"
+class="section level4">
+<h4>Using qplot with our new function &lt;- but it was deprecated in
+3.4.0 so be careful</h4>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y=</span><span class="fu">ran_walk</span>(), <span class="at">geom=</span><span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<pre><code>## Population extinction at time 25</code></pre>
+<pre><code>## Warning: Removed 76 rows containing missing values or values outside the scale range
+## (`geom_line()`).</code></pre>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="co"># The NAs help us keep x-axis at 100</span></span></code></pre></div>
+</div>
+<div id="now-time-for-test-cases---o-boy" class="section level4">
+<h4>Now, time for test cases - o boy</h4>
+<p>Checking our math, we see setting noise to 0 we get no change
+i.e. population stays stable</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y=</span><span class="fu">ran_walk</span>(<span class="at">noise_sd=</span><span class="dv">0</span>), <span class="at">geom=</span><span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="now-testing-exponential-growth" class="section level4">
+<h4>Now testing exponential growth</h4>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y=</span><span class="fu">ran_walk</span>(<span class="at">noise_sd =</span> <span class="dv">0</span>, <span class="at">lamda =</span> <span class="fl">1.1</span>), <span class="at">geom=</span><span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="now-that-we-have-seen-exponential-growth-lets-see-decay"
+class="section level4">
+<h4>Now that we have seen exponential growth, lets see decay</h4>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y=</span><span class="fu">ran_walk</span>(<span class="at">noise_sd =</span> <span class="dv">0</span>, <span class="at">lamda =</span> <span class="fl">0.98</span>), <span class="at">geom=</span><span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="pure-white-noise" class="section level4">
+<h4>Pure white noise</h4>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y=</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">50</span>), <span class="at">geom=</span><span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div id="could-use-round-function-to-keep-integers"
+class="section level5">
+<h5>Could use round() function to keep integers</h5>
+</div>
+<div
+id="for-sexual-reproduction-what-if-all-same-sex-use-unisexextinct-runif1-20.5n"
+class="section level5">
+<h5>for sexual reproduction, what if all same sex? use unisexExtinct ==
+runif(1) &lt;= 2*(0.5)^n</h5>
+</div>
+<div id="environmental-noise-not-random-walk-add-rnorm01"
+class="section level5">
+<h5>environmental noise not random walk – add rnorm(0,1)</h5>
+</div>
+<div id="measurement-error-add-rnorm01-for-0s-wo-extinction"
+class="section level5">
+<h5>measurement error – add rnorm(0,1) for 0’s w/o extinction</h5>
+</div>
+</div>
+</div>
+<div id="using-double-for-loop---loop-de-loop" class="section level1">
+<h1>Using double for loop - loop de loop</h1>
+<div
+id="for-test-matrices-want-them-modularly-sized-and-avoid-square-matrices-if-possible"
+class="section level4">
+<h4>for test matrices, want them modularly sized and avoid square
+matrices if possible</h4>
+</div>
+<div id="so-first-looping-over-rows" class="section level4">
+<h4>So first, looping over rows</h4>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">round</span>(<span class="fu">runif</span>(<span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">nrow =</span><span class="dv">5</span>)</span></code></pre></div>
+</div>
+<div id="looping-over-rows" class="section level4">
+<h4>looping over rows</h4>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(m)) { <span class="co">#could use for (i in seq_len(nrow(m)))</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  m[i,] <span class="ot">&lt;-</span> m[i,] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>}</span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a><span class="fu">print</span>(m)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,] 1.08 1.78 1.27 1.45
+## [2,] 1.75 1.48 1.88 1.33
+## [3,] 1.07 1.83 1.48 1.44
+## [4,] 1.96 1.43 1.28 1.09
+## [5,] 1.40 1.28 1.77 1.46</code></pre>
+</div>
+<div
+id="now-looping-over-columns---switched-i-with-j-this-will-help-with-syntax-and-code-reading"
+class="section level4">
+<h4>now looping over columns &lt;- switched i with j, this will help
+with syntax and code reading</h4>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(m)) { <span class="co">#could use for (i in seq_len(ncol(m)))</span></span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>  m[,j] <span class="ot">&lt;-</span> m[,j] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a>}</span>
+<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a><span class="fu">print</span>(m)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,] 2.08 2.78 2.27 2.45
+## [2,] 2.75 2.48 2.88 2.33
+## [3,] 2.07 2.83 2.48 2.44
+## [4,] 2.96 2.43 2.28 2.09
+## [5,] 2.40 2.28 2.77 2.46</code></pre>
+</div>
+<div id="now-building-a-double-for-loop-or-nested-for-loop"
+class="section level4">
+<h4>Now building a double for-loop, or nested for-loop</h4>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">round</span>(<span class="fu">runif</span>(<span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">nrow =</span><span class="dv">5</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(m)) {</span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(m)) {</span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>    m[i,j] <span class="ot">&lt;-</span> m[i,j] <span class="sc">+</span> i <span class="sc">+</span> j <span class="co"># taking number and adding values to it</span></span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a>  } <span class="co"># end of j loop</span></span>
+<span id="cb61-7"><a href="#cb61-7" tabindex="-1"></a>} <span class="co"># end of i loop</span></span>
+<span id="cb61-8"><a href="#cb61-8" tabindex="-1"></a><span class="fu">print</span>(m)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]  [,4]
+## [1,] 0.37 0.61 0.14 20.27
+## [2,] 0.40 0.82 0.41 24.34
+## [3,] 0.31 0.35 0.20 28.77
+## [4,] 0.22 0.88 0.40 32.40
+## [5,] 0.15 0.59 0.12 36.57</code></pre>
+</div>
+<div
+id="creating-function-to-sweep-over-parameters-including-good-formatting-for-function-in-codecomments---from-ecology"
+class="section level2">
+<h2>Creating function to sweep over parameters, including good
+formatting for function in code/comments &lt;- from ecology</h2>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="co"># Function: Species area curve &lt;- S = cA^z</span></span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a><span class="co"># Creates power function relationship for S and A</span></span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a><span class="co"># input:  A is a vector of island areas</span></span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a><span class="co">#         c is the intercept constant</span></span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a><span class="co">#         z is the slope constant</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a><span class="co"># output: S is a vector of species richness values</span></span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a><span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a>species_area_curve <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">A=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>, <span class="at">c =</span> <span class="fl">0.5</span>, <span class="at">z =</span> <span class="fl">0.26</span>) {</span>
+<span id="cb63-12"><a href="#cb63-12" tabindex="-1"></a>  S <span class="ot">&lt;-</span> c<span class="sc">*</span>(A<span class="sc">^</span>z)</span>
+<span id="cb63-13"><a href="#cb63-13" tabindex="-1"></a>  <span class="fu">return</span>(S)</span>
+<span id="cb63-14"><a href="#cb63-14" tabindex="-1"></a>}</span></code></pre></div>
+<div id="using-head-function-returns-first-6-elements"
+class="section level4">
+<h4>Using head function, returns first 6 elements</h4>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">species_area_curve</span>())</span></code></pre></div>
+<pre><code>## [1] 0.5000000 0.5987394 0.6653061 0.7169776 0.7598051 0.7966899</code></pre>
+</div>
+</div>
+<div id="creating-second-function-for-plotting" class="section level2">
+<h2>Creating Second function for plotting</h2>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a><span class="co"># function: species_area_plot</span></span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a><span class="co"># plot species area curves with parameter values</span></span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a><span class="co"># input: A = vector of areas</span></span>
+<span id="cb66-4"><a href="#cb66-4" tabindex="-1"></a><span class="co">#        c = single value for c parameter</span></span>
+<span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a><span class="co">#        z = single value for z paremeter</span></span>
+<span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb66-7"><a href="#cb66-7" tabindex="-1"></a><span class="co"># output: smoothed curve with parameters in graph</span></span>
+<span id="cb66-8"><a href="#cb66-8" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb66-9"><a href="#cb66-9" tabindex="-1"></a><span class="co"># Also examples of using functions within functions</span></span>
+<span id="cb66-10"><a href="#cb66-10" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="#cb66-11" tabindex="-1"></a>species_area_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">A=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>, <span class="at">c =</span> <span class="fl">0.5</span>, <span class="at">z =</span> <span class="fl">0.26</span>) {</span>
+<span id="cb66-12"><a href="#cb66-12" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">x =</span> A, <span class="fu">species_area_curve</span>(A,c,z),</span>
+<span id="cb66-13"><a href="#cb66-13" tabindex="-1"></a>       <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb66-14"><a href="#cb66-14" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Island Area&quot;</span>,</span>
+<span id="cb66-15"><a href="#cb66-15" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;S&quot;</span>,</span>
+<span id="cb66-16"><a href="#cb66-16" tabindex="-1"></a>       <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>))</span>
+<span id="cb66-17"><a href="#cb66-17" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&quot;c =&quot;</span>, c, <span class="st">&quot;z = &quot;</span>, z), <span class="at">cex =</span> <span class="fl">0.7</span>) <span class="co"># This code will put z and c values on top of graphs when called</span></span>
+<span id="cb66-18"><a href="#cb66-18" tabindex="-1"></a>  <span class="co"># return()</span></span>
+<span id="cb66-19"><a href="#cb66-19" tabindex="-1"></a></span>
+<span id="cb66-20"><a href="#cb66-20" tabindex="-1"></a>}</span>
+<span id="cb66-21"><a href="#cb66-21" tabindex="-1"></a><span class="fu">species_area_plot</span>()</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div id="declaring-global-vairables---often-called-at-beginning-of-code"
+class="section level4">
+<h4>Declaring global vairables &lt;- often called at beginning of
+code</h4>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a>c_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">175</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a>z_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.16</span>, <span class="fl">0.26</span>, <span class="fl">0.3</span>)</span></code></pre></div>
+</div>
+<div id="mfrow-example" class="section level4">
+<h4>mfrow example</h4>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)) <span class="co"># mfrow calls to graphics display, unique to base R graphics</span></span>
+<span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a><span class="co"># This will be in a matrix structure and uses our previous function</span></span>
+<span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(c_pars)) { <span class="co"># will jump over c_pars values</span></span>
+<span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(z_pars)) { <span class="co"># will jump over z_pars values</span></span>
+<span id="cb68-5"><a href="#cb68-5" tabindex="-1"></a>    <span class="fu">species_area_plot</span>(<span class="at">c=</span>c_pars[i], <span class="at">z=</span>z_pars[j]) <span class="co"># should in total make 12 passes through this and get a grid of 12 plots</span></span>
+<span id="cb68-6"><a href="#cb68-6" tabindex="-1"></a>  }</span>
+<span id="cb68-7"><a href="#cb68-7" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="comparing-for-and-while-loops" class="section level1">
+<h1>Comparing For and While loops</h1>
+<div id="looping-with-for" class="section level2">
+<h2>looping with for</h2>
+<div
+id="this-is-a-good-example-of-calculating-something-of-unspecified-length"
+class="section level4">
+<h4>This is a good example of calculating something of unspecified
+length</h4>
+</div>
+<div id="break-will-stop-when-end-point-is-reached"
+class="section level4">
+<h4>break will stop when end point is reached</h4>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>cut_point <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>ran_data <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(ran_data)) {</span>
+<span id="cb69-5"><a href="#cb69-5" tabindex="-1"></a>  z <span class="ot">&lt;-</span> ran_data[i]</span>
+<span id="cb69-6"><a href="#cb69-6" tabindex="-1"></a>  <span class="cf">if</span> (z <span class="sc">&lt;</span> cut_point) <span class="cf">break</span></span>
+<span id="cb69-7"><a href="#cb69-7" tabindex="-1"></a>}</span>
+<span id="cb69-8"><a href="#cb69-8" tabindex="-1"></a><span class="fu">print</span>(z)</span></code></pre></div>
+<pre><code>## [1] 0.001228433</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a><span class="fu">print</span>(i)</span></code></pre></div>
+<pre><code>## [1] 25</code></pre>
+</div>
+</div>
+<div id="similar-to-other-languages-we-will-do-a-while-loop"
+class="section level2">
+<h2>Similar to other languages, we will do a while loop</h2>
+<div id="looping-with-while" class="section level4">
+<h4>looping with while</h4>
+</div>
+<div
+id="in-this-example-we-need-to-create-a-counter-number-in-this-case-cycle_number"
+class="section level4">
+<h4>in this example, we need to create a counter number, in this case
+cycle_number</h4>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a>cut_point <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb73-3"><a href="#cb73-3" tabindex="-1"></a>cycle_number <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+</div>
+</div>
+<div id="note" class="section level2">
+<h2>NOTE:</h2>
+<p>if z = NA OR z is greater than or equal to cut_point, which is 0.1
+loop will continue to run loop will stop when z is less than the
+cut_point or is NA instead of printing out loop number, since we do not
+have one, we print out cycle_number Though, while loops are generally
+bad practice - for loops are generally better form Worst part of while
+loop - unsure if it will ever end - I.E. it could never meet criteria
+then go on forever - no good for example, if cut_point is something so
+low like 0.00001, it could run for a while, no pun intended </p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="cf">while</span> (<span class="fu">is.na</span>(z) <span class="sc">|</span> z <span class="sc">&gt;=</span> cut_point) {</span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a>  cycle_number <span class="ot">&lt;-</span> cycle_number <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb74-4"><a href="#cb74-4" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="#cb74-5" tabindex="-1"></a>}</span>
+<span id="cb74-6"><a href="#cb74-6" tabindex="-1"></a><span class="fu">print</span>(z)</span></code></pre></div>
+<pre><code>## [1] 0.08370573</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="fu">print</span>(cycle_number)</span></code></pre></div>
+<pre><code>## [1] 29</code></pre>
+</div>
+<div id="now-using-the-repeat-function" class="section level2">
+<h2>Now using the repeat function</h2>
+</div>
+<div id="looping-with-repeat" class="section level2">
+<h2>looping with repeat</h2>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a>cycle_number <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb78-3"><a href="#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb78-5"><a href="#cb78-5" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb78-6"><a href="#cb78-6" tabindex="-1"></a>  cycle_number <span class="ot">&lt;-</span> cycle_number <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb78-7"><a href="#cb78-7" tabindex="-1"></a></span>
+<span id="cb78-8"><a href="#cb78-8" tabindex="-1"></a>  <span class="cf">if</span> (z <span class="sc">&lt;=</span> cut_point) <span class="cf">break</span></span>
+<span id="cb78-9"><a href="#cb78-9" tabindex="-1"></a>}</span>
+<span id="cb78-10"><a href="#cb78-10" tabindex="-1"></a><span class="fu">print</span>(z)</span></code></pre></div>
+<pre><code>## [1] 0.07377926</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="fu">print</span>(cycle_number)</span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+</div>
+</div>
+<div id="expand-grid-function---mucho-importante"
+class="section level1">
+<h1>Expand grid function &lt;- Mucho importante</h1>
+<p>This function automatically sets up variables and pairs up unique
+combination of the two inputted values c_pars is 3, z_pars is 4, so it
+gives us a data frame of 12 unique combinations using c_pars and z_pars
+from earlier, lines 206 and 207</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a><span class="fu">expand.grid</span>(c_pars,z_pars)</span></code></pre></div>
+<pre><code>##    Var1 Var2
+## 1   100 0.10
+## 2   150 0.10
+## 3   175 0.10
+## 4   100 0.16
+## 5   150 0.16
+## 6   175 0.16
+## 7   100 0.26
+## 8   150 0.26
+## 9   175 0.26
+## 10  100 0.30
+## 11  150 0.30
+## 12  175 0.30</code></pre>
+<div id="expand.grid-examples-for-creating-data-sets"
+class="section level4">
+<h4>expand.grid examples for creating data sets</h4>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> c_pars, <span class="at">y =</span> z_pars) <span class="co"># x can be replaced with column/variable name for first value, y can be replaced for second value and so on</span></span>
+<span id="cb84-2"><a href="#cb84-2" tabindex="-1"></a><span class="co"># can be down with more than 2 values</span></span>
+<span id="cb84-3"><a href="#cb84-3" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> c_pars, <span class="at">y =</span> z_pars, <span class="at">z =</span> c_pars<span class="sc">*</span><span class="dv">2</span>) <span class="co"># now 36 values, 3*4*3 = 36</span></span>
+<span id="cb84-4"><a href="#cb84-4" tabindex="-1"></a>df2</span></code></pre></div>
+<pre><code>##      x    y   z
+## 1  100 0.10 200
+## 2  150 0.10 200
+## 3  175 0.10 200
+## 4  100 0.16 200
+## 5  150 0.16 200
+## 6  175 0.16 200
+## 7  100 0.26 200
+## 8  150 0.26 200
+## 9  175 0.26 200
+## 10 100 0.30 200
+## 11 150 0.30 200
+## 12 175 0.30 200
+## 13 100 0.10 300
+## 14 150 0.10 300
+## 15 175 0.10 300
+## 16 100 0.16 300
+## 17 150 0.16 300
+## 18 175 0.16 300
+## 19 100 0.26 300
+## 20 150 0.26 300
+## 21 175 0.26 300
+## 22 100 0.30 300
+## 23 150 0.30 300
+## 24 175 0.30 300
+## 25 100 0.10 350
+## 26 150 0.10 350
+## 27 175 0.10 350
+## 28 100 0.16 350
+## 29 150 0.16 350
+## 30 175 0.16 350
+## 31 100 0.26 350
+## 32 150 0.26 350
+## 33 175 0.26 350
+## 34 100 0.30 350
+## 35 150 0.30 350
+## 36 175 0.30 350</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a><span class="fu">head</span>(df) <span class="co"># Returns first 6 rows</span></span></code></pre></div>
+<pre><code>##     x    y
+## 1 100 0.10
+## 2 150 0.10
+## 3 175 0.10
+## 4 100 0.16
+## 5 150 0.16
+## 6 175 0.16</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="fu">str</span>(df) <span class="co"># You can see, the structure of df is a data.frame</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    12 obs. of  2 variables:
+##  $ x: num  100 150 175 100 150 175 100 150 175 100 ...
+##  $ y: num  0.1 0.1 0.1 0.16 0.16 0.16 0.26 0.26 0.26 0.3 ...
+##  - attr(*, &quot;out.attrs&quot;)=List of 2
+##   ..$ dim     : Named int [1:2] 3 4
+##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;x&quot; &quot;y&quot;
+##   ..$ dimnames:List of 2
+##   .. ..$ x: chr [1:3] &quot;x=100&quot; &quot;x=150&quot; &quot;x=175&quot;
+##   .. ..$ y: chr [1:4] &quot;y=0.10&quot; &quot;y=0.16&quot; &quot;y=0.26&quot; &quot;y=0.30&quot;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##      x    y
+## 1  100 0.10
+## 2  150 0.10
+## 3  175 0.10
+## 4  100 0.16
+## 5  150 0.16
+## 6  175 0.16
+## 7  100 0.26
+## 8  150 0.26
+## 9  175 0.26
+## 10 100 0.30
+## 11 150 0.30
+## 12 175 0.30</code></pre>
+</div>
+<div id="creating-sa_output-function" class="section level2">
+<h2>Creating sa_output function</h2>
+<div
+id="this-function-gives-us-a-2-value-list-with-x-max---min-and-y-coefficient-of-variation"
+class="section level4">
+<h4>This function gives us a 2 value list with x = max - min, and y =
+coefficient of variation</h4>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a><span class="do">##################################################</span></span>
+<span id="cb92-2"><a href="#cb92-2" tabindex="-1"></a><span class="co"># function: sa_output</span></span>
+<span id="cb92-3"><a href="#cb92-3" tabindex="-1"></a><span class="co"># Summary stats for species-area power function</span></span>
+<span id="cb92-4"><a href="#cb92-4" tabindex="-1"></a><span class="co"># input: vector of predicted species richness (right now random numeric value)</span></span>
+<span id="cb92-5"><a href="#cb92-5" tabindex="-1"></a><span class="co"># output: list of max-min called sum_stats, coefficient of variation</span></span>
+<span id="cb92-6"><a href="#cb92-6" tabindex="-1"></a><span class="co">#-------------------------------------------------</span></span>
+<span id="cb92-7"><a href="#cb92-7" tabindex="-1"></a></span>
+<span id="cb92-8"><a href="#cb92-8" tabindex="-1"></a>sa_output <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">S=</span><span class="fu">runif</span>(<span class="dv">10</span>)) {</span>
+<span id="cb92-9"><a href="#cb92-9" tabindex="-1"></a></span>
+<span id="cb92-10"><a href="#cb92-10" tabindex="-1"></a>  sum_stats <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">s_gain=</span><span class="fu">max</span>(S)<span class="sc">-</span><span class="fu">min</span>(S),<span class="at">s_cv=</span><span class="fu">sd</span>(S)<span class="sc">/</span><span class="fu">mean</span>(S)) <span class="co"># list of  first: max value of s - min of s,</span></span>
+<span id="cb92-11"><a href="#cb92-11" tabindex="-1"></a>  <span class="co"># then taking the standard deviation of s divided by the mean of s for second list value</span></span>
+<span id="cb92-12"><a href="#cb92-12" tabindex="-1"></a></span>
+<span id="cb92-13"><a href="#cb92-13" tabindex="-1"></a>  <span class="fu">return</span>(sum_stats)</span>
+<span id="cb92-14"><a href="#cb92-14" tabindex="-1"></a>}</span>
+<span id="cb92-15"><a href="#cb92-15" tabindex="-1"></a><span class="fu">sa_output</span>() <span class="co"># list is 2 values</span></span></code></pre></div>
+<pre><code>## $s_gain
+## [1] 0.6699767
+## 
+## $s_cv
+## [1] 0.4095386</code></pre>
+</div>
+</div>
+</div>
+<div
+id="build-program-body-with-a-single-loop-through-the-parameters-in-modelframe"
+class="section level1">
+<h1>Build program body with a single loop through the parameters in
+modelFrame</h1>
+<div id="global-variables-area-vector-c_pars-again-and-z_pars"
+class="section level4">
+<h4>Global variables, area vector, c_pars again, and z_pars</h4>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span></span>
+<span id="cb94-2"><a href="#cb94-2" tabindex="-1"></a>c_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">150</span>,<span class="dv">175</span>)</span>
+<span id="cb94-3"><a href="#cb94-3" tabindex="-1"></a>z_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.16</span>, <span class="fl">0.26</span>, <span class="fl">0.3</span>)</span></code></pre></div>
+</div>
+<div id="set-up-modeldata-frame-using-expand.grid"
+class="section level4">
+<h4>set up model/data frame using expand.grid</h4>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" tabindex="-1"></a>model_frame <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">c=</span>c_pars,<span class="at">z=</span>z_pars)</span>
+<span id="cb95-2"><a href="#cb95-2" tabindex="-1"></a>model_frame<span class="sc">$</span>s_gain <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># adding column called s_gain with values NA</span></span>
+<span id="cb95-3"><a href="#cb95-3" tabindex="-1"></a>model_frame<span class="sc">$</span>s_cv <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># adding column called s_cv with values NA</span></span>
+<span id="cb95-4"><a href="#cb95-4" tabindex="-1"></a><span class="fu">print</span>(model_frame)</span></code></pre></div>
+<pre><code>##      c    z s_gain s_cv
+## 1  100 0.10     NA   NA
+## 2  150 0.10     NA   NA
+## 3  175 0.10     NA   NA
+## 4  100 0.16     NA   NA
+## 5  150 0.16     NA   NA
+## 6  175 0.16     NA   NA
+## 7  100 0.26     NA   NA
+## 8  150 0.26     NA   NA
+## 9  175 0.26     NA   NA
+## 10 100 0.30     NA   NA
+## 11 150 0.30     NA   NA
+## 12 175 0.30     NA   NA</code></pre>
+</div>
+<div id="cycle-through-model-calculations---using-multiple-functions"
+class="section level4">
+<h4>cycle through model calculations - using multiple functions</h4>
+</div>
+<div
+id="starting-from-1-to-number-of-rows-from-model_frame---in-our-case-12-rows"
+class="section level4">
+<h4>starting from 1 to number of rows from model_frame - in our case, 12
+rows</h4>
+</div>
+<div
+id="replacing-the-values-of-na-from-model_frame-with-our-calculated-values-from-our-created-functions"
+class="section level4">
+<h4>Replacing the values of NA from model_frame with our calculated
+values from our created functions</h4>
+</div>
+<div
+id="notice-by-using-our-functions-and-expand.grid-we-made-this-one_dimensional-looping-keeps-values-associated-with-appropriate-rows"
+class="section level4">
+<h4>Notice, by using our functions and expand.grid we made this
+one_dimensional looping keeps values associated with appropriate
+rows</h4>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(model_frame)) {</span>
+<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="#cb97-3" tabindex="-1"></a>  <span class="co"># generate S vector</span></span>
+<span id="cb97-4"><a href="#cb97-4" tabindex="-1"></a>  <span class="co"># calling upon species_area_curve from earlier and creating a temp value</span></span>
+<span id="cb97-5"><a href="#cb97-5" tabindex="-1"></a>  <span class="co"># Using area vector from earlier which is 1 to 5000</span></span>
+<span id="cb97-6"><a href="#cb97-6" tabindex="-1"></a>  <span class="co"># model_frame[i,1] will take row i, col 1, which is our c_par, c</span></span>
+<span id="cb97-7"><a href="#cb97-7" tabindex="-1"></a>  <span class="co"># model_frame[i,2] will take row i, col 2, which is our z_par, z</span></span>
+<span id="cb97-8"><a href="#cb97-8" tabindex="-1"></a>  temp1 <span class="ot">&lt;-</span> <span class="fu">species_area_curve</span>(<span class="at">A=</span>area,</span>
+<span id="cb97-9"><a href="#cb97-9" tabindex="-1"></a>                              <span class="at">c=</span>model_frame[i,<span class="dv">1</span>],</span>
+<span id="cb97-10"><a href="#cb97-10" tabindex="-1"></a>                              <span class="at">z=</span>model_frame[i,<span class="dv">2</span>])</span>
+<span id="cb97-11"><a href="#cb97-11" tabindex="-1"></a>  <span class="co"># calculate output stats using our first temp value, creating a second temp value</span></span>
+<span id="cb97-12"><a href="#cb97-12" tabindex="-1"></a>  <span class="co"># temp2 &lt;- sa_output(temp1) &lt; could use temp2 but uneccessary</span></span>
+<span id="cb97-13"><a href="#cb97-13" tabindex="-1"></a>  <span class="co"># model_frame[i,c(3,4)] &lt;- temp2</span></span>
+<span id="cb97-14"><a href="#cb97-14" tabindex="-1"></a>  <span class="co"># temp 2 is a list, and then were passing this list into a model_frame which we need   # to do since were passing in multiple columns into a data frame</span></span>
+<span id="cb97-15"><a href="#cb97-15" tabindex="-1"></a>  <span class="co"># pass results to columns in data frame</span></span>
+<span id="cb97-16"><a href="#cb97-16" tabindex="-1"></a>  model_frame[i,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)] <span class="ot">&lt;-</span> <span class="fu">sa_output</span>(temp1)</span>
+<span id="cb97-17"><a href="#cb97-17" tabindex="-1"></a></span>
+<span id="cb97-18"><a href="#cb97-18" tabindex="-1"></a>}</span>
+<span id="cb97-19"><a href="#cb97-19" tabindex="-1"></a><span class="fu">print</span>(model_frame)</span></code></pre></div>
+<pre><code>##      c    z    s_gain       s_cv
+## 1  100 0.10  134.3673 0.09109192
+## 2  150 0.10  201.5509 0.09109192
+## 3  175 0.10  235.1428 0.09109192
+## 4  100 0.16  290.6926 0.13905495
+## 5  150 0.16  436.0389 0.13905495
+## 6  175 0.16  508.7121 0.13905495
+## 7  100 0.26  815.6557 0.21070232
+## 8  150 0.26 1223.4835 0.21070232
+## 9  175 0.26 1427.3975 0.21070232
+## 10 100 0.30 1187.3333 0.23699746
+## 11 150 0.30 1780.9999 0.23699746
+## 12 175 0.30 2077.8333 0.23699746</code></pre>
+</div>
+<div id="parameter-sweeping-redux-using-ggplot-to-graph-the-data"
+class="section level2">
+<h2>Parameter Sweeping Redux using ggplot to graph the data</h2>
+<div id="first-global-variables-for-loops-for-data"
+class="section level4">
+<h4>First, global variables for loops for data</h4>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="co">#keep this very small initially</span></span>
+<span id="cb99-2"><a href="#cb99-2" tabindex="-1"></a>c_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">150</span>,<span class="dv">175</span>)</span>
+<span id="cb99-3"><a href="#cb99-3" tabindex="-1"></a>z_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.16</span>, <span class="fl">0.26</span>, <span class="fl">0.3</span>)</span></code></pre></div>
+</div>
+<div
+id="set-up-model-frame-this-time-with-col-s-that-has-values-na-and-we-have-col-a"
+class="section level4">
+<h4>set up model frame, this time with col S that has values NA and we
+have col A</h4>
+</div>
+<div id="model_frame-will-be-5-3-4-60-rowscombinations-large"
+class="section level4">
+<h4>model_frame will be 5 * 3 * 4 = 60 rows/combinations large</h4>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>model_frame <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">c=</span>c_pars,<span class="at">z=</span>z_pars,<span class="at">A=</span>area)</span>
+<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>model_frame<span class="sc">$</span>S <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb100-3"><a href="#cb100-3" tabindex="-1"></a>model_frame</span></code></pre></div>
+<pre><code>##      c    z A  S
+## 1  100 0.10 1 NA
+## 2  150 0.10 1 NA
+## 3  175 0.10 1 NA
+## 4  100 0.16 1 NA
+## 5  150 0.16 1 NA
+## 6  175 0.16 1 NA
+## 7  100 0.26 1 NA
+## 8  150 0.26 1 NA
+## 9  175 0.26 1 NA
+## 10 100 0.30 1 NA
+## 11 150 0.30 1 NA
+## 12 175 0.30 1 NA
+## 13 100 0.10 2 NA
+## 14 150 0.10 2 NA
+## 15 175 0.10 2 NA
+## 16 100 0.16 2 NA
+## 17 150 0.16 2 NA
+## 18 175 0.16 2 NA
+## 19 100 0.26 2 NA
+## 20 150 0.26 2 NA
+## 21 175 0.26 2 NA
+## 22 100 0.30 2 NA
+## 23 150 0.30 2 NA
+## 24 175 0.30 2 NA
+## 25 100 0.10 3 NA
+## 26 150 0.10 3 NA
+## 27 175 0.10 3 NA
+## 28 100 0.16 3 NA
+## 29 150 0.16 3 NA
+## 30 175 0.16 3 NA
+## 31 100 0.26 3 NA
+## 32 150 0.26 3 NA
+## 33 175 0.26 3 NA
+## 34 100 0.30 3 NA
+## 35 150 0.30 3 NA
+## 36 175 0.30 3 NA
+## 37 100 0.10 4 NA
+## 38 150 0.10 4 NA
+## 39 175 0.10 4 NA
+## 40 100 0.16 4 NA
+## 41 150 0.16 4 NA
+## 42 175 0.16 4 NA
+## 43 100 0.26 4 NA
+## 44 150 0.26 4 NA
+## 45 175 0.26 4 NA
+## 46 100 0.30 4 NA
+## 47 150 0.30 4 NA
+## 48 175 0.30 4 NA
+## 49 100 0.10 5 NA
+## 50 150 0.10 5 NA
+## 51 175 0.10 5 NA
+## 52 100 0.16 5 NA
+## 53 150 0.16 5 NA
+## 54 175 0.16 5 NA
+## 55 100 0.26 5 NA
+## 56 150 0.26 5 NA
+## 57 175 0.26 5 NA
+## 58 100 0.30 5 NA
+## 59 150 0.30 5 NA
+## 60 175 0.30 5 NA</code></pre>
+</div>
+</div>
+<div
+id="dimensional-for-loop-through-the-parameters-and-fill-column-s-with-sa-function-values"
+class="section level2">
+<h2>2 dimensional for loop through the parameters and fill column S with
+SA function values</h2>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(c_pars)) {</span>
+<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(z_pars)) {</span>
+<span id="cb102-3"><a href="#cb102-3" tabindex="-1"></a>    model_frame[model_frame<span class="sc">$</span>c<span class="sc">==</span>c_pars[i] <span class="sc">&amp;</span> model_frame<span class="sc">$</span>z<span class="sc">==</span>z_pars[j],<span class="st">&quot;S&quot;</span>] <span class="ot">&lt;-</span>   <span class="fu">species_area_curve</span>(<span class="at">A=</span>area,<span class="at">c=</span>c_pars[i],<span class="at">z=</span>z_pars[j])</span>
+<span id="cb102-4"><a href="#cb102-4" tabindex="-1"></a>  }</span>
+<span id="cb102-5"><a href="#cb102-5" tabindex="-1"></a>}</span>
+<span id="cb102-6"><a href="#cb102-6" tabindex="-1"></a>model_frame</span></code></pre></div>
+<pre><code>##      c    z A        S
+## 1  100 0.10 1 100.0000
+## 2  150 0.10 1 150.0000
+## 3  175 0.10 1 175.0000
+## 4  100 0.16 1 100.0000
+## 5  150 0.16 1 150.0000
+## 6  175 0.16 1 175.0000
+## 7  100 0.26 1 100.0000
+## 8  150 0.26 1 150.0000
+## 9  175 0.26 1 175.0000
+## 10 100 0.30 1 100.0000
+## 11 150 0.30 1 150.0000
+## 12 175 0.30 1 175.0000
+## 13 100 0.10 2 107.1773
+## 14 150 0.10 2 160.7660
+## 15 175 0.10 2 187.5604
+## 16 100 0.16 2 111.7287
+## 17 150 0.16 2 167.5931
+## 18 175 0.16 2 195.5252
+## 19 100 0.26 2 119.7479
+## 20 150 0.26 2 179.6218
+## 21 175 0.26 2 209.5588
+## 22 100 0.30 2 123.1144
+## 23 150 0.30 2 184.6717
+## 24 175 0.30 2 215.4503
+## 25 100 0.10 3 111.6123
+## 26 150 0.10 3 167.4185
+## 27 175 0.10 3 195.3216
+## 28 100 0.16 3 119.2173
+## 29 150 0.16 3 178.8260
+## 30 175 0.16 3 208.6303
+## 31 100 0.26 3 133.0612
+## 32 150 0.26 3 199.5918
+## 33 175 0.26 3 232.8571
+## 34 100 0.30 3 139.0389
+## 35 150 0.30 3 208.5584
+## 36 175 0.30 3 243.3181
+## 37 100 0.10 4 114.8698
+## 38 150 0.10 4 172.3048
+## 39 175 0.10 4 201.0222
+## 40 100 0.16 4 124.8331
+## 41 150 0.16 4 187.2496
+## 42 175 0.16 4 218.4578
+## 43 100 0.26 4 143.3955
+## 44 150 0.26 4 215.0933
+## 45 175 0.26 4 250.9422
+## 46 100 0.30 4 151.5717
+## 47 150 0.30 4 227.3575
+## 48 175 0.30 4 265.2504
+## 49 100 0.10 5 117.4619
+## 50 150 0.10 5 176.1928
+## 51 175 0.10 5 205.5583
+## 52 100 0.16 5 129.3705
+## 53 150 0.16 5 194.0557
+## 54 175 0.16 5 226.3983
+## 55 100 0.26 5 151.9610
+## 56 150 0.26 5 227.9415
+## 57 175 0.26 5 265.9318
+## 58 100 0.30 5 162.0657
+## 59 150 0.30 5 243.0985
+## 60 175 0.30 5 283.6149</code></pre>
+</div>
+<div
+id="dimensional-for-loop-that-assigns-values-of-species_area_curve-function-to-col-s-of-model_frame-where-the-parameters-for-the-function-are-the-corresponding-rows-should-be-same-values"
+class="section level2">
+<h2>1 dimensional for loop that assigns values of species_area_curve
+function to col S of model_frame, where the parameters for the function
+are the corresponding rows should be same values</h2>
+<div
+id="real-power-of-expand.grid---goes-through-3-columns-for-1-row-in-one-call"
+class="section level4">
+<h4>Real power of expand.grid &lt;- goes through 3 columns for 1 row in
+one call</h4>
+</div>
+<div id="does-not-have-to-loop-over-parameters" class="section level4">
+<h4>Does not have to loop over parameters</h4>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(model_frame)) {</span>
+<span id="cb104-2"><a href="#cb104-2" tabindex="-1"></a>  model_frame[i,<span class="st">&quot;S&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">species_area_curve</span>(<span class="at">A=</span>model_frame<span class="sc">$</span>A[i],</span>
+<span id="cb104-3"><a href="#cb104-3" tabindex="-1"></a>                                           <span class="at">c=</span>model_frame<span class="sc">$</span>c[i],</span>
+<span id="cb104-4"><a href="#cb104-4" tabindex="-1"></a>                                           <span class="at">z=</span>model_frame<span class="sc">$</span>z[i])</span>
+<span id="cb104-5"><a href="#cb104-5" tabindex="-1"></a>}</span>
+<span id="cb104-6"><a href="#cb104-6" tabindex="-1"></a><span class="fu">print</span>(model_frame) <span class="co"># check by printing a data frame with limited parameter values</span></span></code></pre></div>
+<pre><code>##      c    z A        S
+## 1  100 0.10 1 100.0000
+## 2  150 0.10 1 150.0000
+## 3  175 0.10 1 175.0000
+## 4  100 0.16 1 100.0000
+## 5  150 0.16 1 150.0000
+## 6  175 0.16 1 175.0000
+## 7  100 0.26 1 100.0000
+## 8  150 0.26 1 150.0000
+## 9  175 0.26 1 175.0000
+## 10 100 0.30 1 100.0000
+## 11 150 0.30 1 150.0000
+## 12 175 0.30 1 175.0000
+## 13 100 0.10 2 107.1773
+## 14 150 0.10 2 160.7660
+## 15 175 0.10 2 187.5604
+## 16 100 0.16 2 111.7287
+## 17 150 0.16 2 167.5931
+## 18 175 0.16 2 195.5252
+## 19 100 0.26 2 119.7479
+## 20 150 0.26 2 179.6218
+## 21 175 0.26 2 209.5588
+## 22 100 0.30 2 123.1144
+## 23 150 0.30 2 184.6717
+## 24 175 0.30 2 215.4503
+## 25 100 0.10 3 111.6123
+## 26 150 0.10 3 167.4185
+## 27 175 0.10 3 195.3216
+## 28 100 0.16 3 119.2173
+## 29 150 0.16 3 178.8260
+## 30 175 0.16 3 208.6303
+## 31 100 0.26 3 133.0612
+## 32 150 0.26 3 199.5918
+## 33 175 0.26 3 232.8571
+## 34 100 0.30 3 139.0389
+## 35 150 0.30 3 208.5584
+## 36 175 0.30 3 243.3181
+## 37 100 0.10 4 114.8698
+## 38 150 0.10 4 172.3048
+## 39 175 0.10 4 201.0222
+## 40 100 0.16 4 124.8331
+## 41 150 0.16 4 187.2496
+## 42 175 0.16 4 218.4578
+## 43 100 0.26 4 143.3955
+## 44 150 0.26 4 215.0933
+## 45 175 0.26 4 250.9422
+## 46 100 0.30 4 151.5717
+## 47 150 0.30 4 227.3575
+## 48 175 0.30 4 265.2504
+## 49 100 0.10 5 117.4619
+## 50 150 0.10 5 176.1928
+## 51 175 0.10 5 205.5583
+## 52 100 0.16 5 129.3705
+## 53 150 0.16 5 194.0557
+## 54 175 0.16 5 226.3983
+## 55 100 0.26 5 151.9610
+## 56 150 0.26 5 227.9415
+## 57 175 0.26 5 265.9318
+## 58 100 0.30 5 162.0657
+## 59 150 0.30 5 243.0985
+## 60 175 0.30 5 283.6149</code></pre>
+</div>
+</div>
+</div>
+<div
+id="now-graphing-this-with-ggplot-first---call-upon-ggplot2---notice-we-dont-need-for-loops-for-this---abusing-rs-vectorization"
+class="section level1">
+<h1>Now graphing this with ggplot, first - call upon ggplot2 - notice we
+dont need for-loops for this &lt;- Abusing R’s vectorization</h1>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div
+id="assigning-plot-of-data-of-model_frame-to-p1-then-adding-comparisongraph-details-using-geom_line"
+class="section level4">
+<h4>assigning plot of data of model_frame to p1 then adding
+comparison/graph details using geom_line</h4>
+</div>
+<div id="returns-12-graphs-in-one-image" class="section level4">
+<h4>returns 12 graphs in one image</h4>
+</div>
+<div
+id="geom_line---geometricimage-ggplot-will-make-in-this-case-a-line-with"
+class="section level4">
+<h4>geom_line &lt;- geometric/image ggplot will make, in this case a
+line with:</h4>
+</div>
+<div id="x-axis-is-area-12345-y-valueaxis-is-s-what-we-calculated"
+class="section level4">
+<h4>x axis is area (1,2,3,4,5), y value/axis is s (what we
+calculated)</h4>
+</div>
+<div
+id="using-facet_grid-our-graphs-are-set-up-to-show-graphs-for-each-c-and-z-combination"
+class="section level4">
+<h4>using facet_grid, our graphs are set up to show graphs for each c
+and z combination</h4>
+</div>
+<div id="therefore-12-graphs" class="section level4">
+<h4>Therefore, 12 graphs</h4>
+</div>
+<div
+id="dont-need-for-referencing-data.col-names-as-we-specified-data-in-our-p1-variable"
+class="section level4">
+<h4>don’t need $ for referencing data.col names as we specified data in
+our p1 variable</h4>
+<div class="sourceCode" id="cb107"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>model_frame)</span>
+<span id="cb107-2"><a href="#cb107-2" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">mapping=</span> <span class="fu">aes</span>(<span class="at">x=</span>A,<span class="at">y=</span>S)) <span class="sc">+</span></span>
+<span id="cb107-3"><a href="#cb107-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(c<span class="sc">~</span>z)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+</div>
+<div
+id="returns-3-graphs-each-graph-has-4-lines-values-from-z-for-each-c-giving-us-3-graphs"
+class="section level4">
+<h4>returns 3 graphs, each graph has 4 lines (values from z) for each c,
+giving us 3 graphs</h4>
+</div>
+<div id="grouped-by-c-values" class="section level4">
+<h4>Grouped by c values</h4>
+</div>
+<div
+id="notice-the-change-in-facet_grid-now-it-is-saying-all-z-values-for-each-c"
+class="section level4">
+<h4>notice the change in facet_grid, now it is saying all z values for
+each c</h4>
+<div class="sourceCode" id="cb108"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1</span>
+<span id="cb108-2"><a href="#cb108-2" tabindex="-1"></a>p2 <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>A,<span class="at">y=</span>S,<span class="at">group=</span>z)) <span class="sc">+</span></span>
+<span id="cb108-3"><a href="#cb108-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>c)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+</div>
+<div
+id="returns-4-graphs-each-graph-has-3-lines-values-from-c-for-each-z-giving-us-4-graphs"
+class="section level4">
+<h4>returns 4 graphs, each graph has 3 lines (values from c) for each z,
+giving us 4 graphs</h4>
+</div>
+<div id="grouped-by-z-values" class="section level4">
+<h4>Grouped by z values</h4>
+</div>
+<div
+id="notice-the-change-in-facet_grid-now-it-is-saying-all-c-values-for-each-z"
+class="section level4">
+<h4>notice the change in facet_grid, now it is saying all c values for
+each z</h4>
+<div class="sourceCode" id="cb109"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p1</span>
+<span id="cb109-2"><a href="#cb109-2" tabindex="-1"></a>p3 <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>A,<span class="at">y=</span>S,<span class="at">group=</span>c)) <span class="sc">+</span></span>
+<span id="cb109-3"><a href="#cb109-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(z<span class="sc">~</span>.)</span></code></pre></div>
+<p><img src="For_Loops_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

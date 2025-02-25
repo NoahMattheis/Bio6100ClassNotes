@@ -1,11 +1,16 @@
 name: "my-website"
 output_dir: docs
 navbar:
-  title: "My Website"
+  title: "R Coding and R Markdown Notes"
   left:
-    - text: "Home"
-      href: FirstMarkdown.html
     - text: "About"
       href: about.html
     - text: "Index"
       href: index.html
+    - text: "RMarkdown Structure"
+      href: FirstMarkdown.html
+    - text: "R Coding Lessons"
+      href: R_Coding_Lessons.html
+      menu:
+        - text: "For Loops"
+          href: For_Loops.html
